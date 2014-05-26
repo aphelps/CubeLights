@@ -255,9 +255,11 @@ void handle_sensors() {
    * Handling
    */
 
+#if 0
   if (CHECK_LONG_BOTH(state)) {
     uiMode = (uiMode + 1) % NUM_UI_MODES;
   }
+#endif
 
   switch (uiMode) {
   case 0: {
@@ -285,21 +287,22 @@ void handle_sensors() {
     }
 
     if (CHECK_RANGE_SHORT(state)) {
-      //if (get_current_mode(FINAL_MODE) != MODE_LIGHT_CENTER) {
-      if (get_current_mode(FINAL_MODE) != MODE_STATIC_NOISE) {
+      if (get_current_mode(FINAL_MODE) != MODE_LIGHT_CENTER) {
+	//if (get_current_mode(FINAL_MODE) != MODE_STATIC_NOISE) {
 	modeConfigs[FINAL_MODE].fgColor = pixel_color(255, 0, 0);
-	//set_mode_to(FINAL_MODE, MODE_LIGHT_CENTER);
+	set_mode_to(FINAL_MODE, MODE_LIGHT_CENTER);
 	//  XXX set_mode_to(FINAL_MODE, MODE_STATIC_NOISE);
       }
     } else {
-      //if (get_current_mode(FINAL_MODE) == MODE_LIGHT_CENTER) {
-      if (get_current_mode(FINAL_MODE) == MODE_STATIC_NOISE) {
+      if (get_current_mode(FINAL_MODE) == MODE_LIGHT_CENTER) {
+	//if (get_current_mode(FINAL_MODE) == MODE_STATIC_NOISE) {
 	restore_mode(FINAL_MODE);
       }
     }
     break;
   }
   case 1: {
+#if 0
     if (CHECK_LONG_BOTH(state)) {
       // Just entered mode changing state
       modeConfigs[0].fgColor = pixel_color(255, 255, 255);
@@ -309,6 +312,7 @@ void handle_sensors() {
       set_mode_to(FINAL_MODE, MODE_BLINK_PATTERN);
       DEBUG_PRINTLN(DEBUG_HIGH, "Entered mode change");
     }
+#endif
 
     if (CHECK_TAP_1(state) && !CHECK_TOUCH_BOTH(state)) {
       increment_mode(0);
